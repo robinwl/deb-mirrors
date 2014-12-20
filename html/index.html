@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Debian/Ubuntu geo mirror</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="twelve column" style="margin-top: 5%">
+        <h1 style="text-align: center;">Debian/Ubuntu geo mirror</h1>
+        <p>Uses <a href="https://www.maxmind.com/en/geoip2-services-and-databases" target="_blank">MinMax IP database</a> to get country location and redirect to the best mirror for the given location.</p>
+        <p>This service uses <a href="http://nginx.org/" target="_blank">nginx</a> with <a href="http://nginx.org/en/docs/http/ngx_http_geoip_module.html" target="_blank">ngx_http_geoip_module</a> to handle redirects.</p>
+
+        <h3>Usage</h3>
+        <h5>/etc/apt/sources.list</h5>
+          <!-- Ubuntu mirrors -->
+          <div class="row">
+            <div class="six columns"> 
+            Debian 14.04 (Trusty Tahr)
+        <pre><code style="font-size: 9px;">deb http://mirror.naas.io/ubuntu/ trusty main restricted
+deb-src http://mirror.naas.io/ubuntu/ trusty main restricted
+
+deb http://mirror.naas.io/ubuntu/ trusty-updates main restricted
+deb-src http://mirror.naas.io/ubuntu/ trusty-updates main restricted
+
+deb http://mirror.naas.io/ubuntu/ trusty universe
+deb-src http://mirror.naas.io/ubuntu/ trusty universe
+deb http://mirror.naas.io/ubuntu/ trusty-updates universe
+deb-src http://mirror.naas.io/ubuntu/ trusty-updates universe
+
+deb http://mirror.naas.io/ubuntu/ trusty multiverse
+deb-src http://mirror.naas.io/ubuntu/ trusty multiverse
+deb http://mirror.naas.io/ubuntu/ trusty-updates multiverse
+deb-src http://mirror.naas.io/ubuntu/ trusty-updates multiverse
+
+deb http://mirror.naas.io/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirror.naas.io/ubuntu/ trusty-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu trusty-security main restricted
+deb-src http://security.ubuntu.com/ubuntu trusty-security main restricted
+deb http://security.ubuntu.com/ubuntu trusty-security universe
+deb-src http://security.ubuntu.com/ubuntu trusty-security universe
+deb http://security.ubuntu.com/ubuntu trusty-security multiverse
+deb-src http://security.ubuntu.com/ubuntu trusty-security multiverse</code></pre>
+          </div>
+          <div class="six columns"> 
+        Ubuntu 12.04.5 LTS (Precise Pangolin)
+        <pre><code style="font-size: 9px;">deb http://mirror.naas.io/ubuntu/ precise main restricted
+deb-src http://mirror.naas.io/ubuntu/ precise main restricted
+
+deb http://mirror.naas.io/ubuntu/ precise-updates main restricted
+deb-src http://mirror.naas.io/ubuntu/ precise-updates main restricted
+
+deb http://mirror.naas.io/ubuntu/ precise universe
+deb-src http://mirror.naas.io/ubuntu/ precise universe
+deb http://mirror.naas.io/ubuntu/ precise-updates universe
+deb-src http://mirror.naas.io/ubuntu/ precise-updates universe
+
+deb http://mirror.naas.io/ubuntu/ precise multiverse
+deb-src http://mirror.naas.io/ubuntu/ precise multiverse
+deb http://mirror.naas.io/ubuntu/ precise-updates multiverse
+deb-src http://mirror.naas.io/ubuntu/ precise-updates multiverse
+
+deb http://mirror.naas.io/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirror.naas.io/ubuntu/ precise-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu precise-security main restricted
+deb-src http://security.ubuntu.com/ubuntu precise-security main restricted
+deb http://security.ubuntu.com/ubuntu precise-security universe
+deb-src http://security.ubuntu.com/ubuntu precise-security universe
+deb http://security.ubuntu.com/ubuntu precise-security multiverse
+deb-src http://security.ubuntu.com/ubuntu precise-security multiverse
+</code></pre>
+        </div>
+      </div>
+
+          <!-- Debian mirrors -->
+          <div class="row">
+            <div class="six columns"> 
+            Debian 7 (Wheezy)
+        <pre><code style="font-size: 9px;">deb http://mirror.naas.io/debian wheezy main contrib non-free
+deb-src http://fmirror.naas.io/debian wheezy main contrib non-free
+
+deb http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
+deb-src http://ftp.debian.org/debian/ wheezy-updates main contrib non-free
+
+deb http://security.debian.org/ wheezy/updates main contrib non-free
+deb-src http://security.debian.org/ wheezy/updates main contrib non-free</code></pre>
+          </div>
+          <div class="six columns"> 
+        Debian 6 (Squeeze)
+        <pre><code style="font-size: 9px;">deb http://mirror.naas.io/debian squeeze main contrib non-free
+deb-src http://mirror.naas.io/debian squeeze main contrib non-free
+
+deb http://ftp.debian.org/debian/ squeeze-updates main contrib non-free
+deb-src http://ftp.debian.org/debian/ squeeze-updates main contrib non-free
+
+deb http://security.debian.org/ squeeze/updates main contrib non-free
+deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+</code></pre>
+        </div>
+      </div>
+
+        <h3>Test</h3>
+        <h5>Services is up</h5>
+        Request: 
+        <pre><code>curl http://mirror.naas.io/hello</code></pre>
+        Response: 
+        <pre><code>{
+  "hello": "world!"
+}</code></pre>
+        <h5>Geo selection</h5>
+        <p>The preferred mirror for this client is <i><strong>se</strong>.archive.ubuntu.com</i>.</p>
+
+        Request: 
+        <pre><code>curl http://mirror.naas.io/test</code></pre>
+        Response: 
+        <pre><code>{
+  "ip": "213.66.228.246",
+  "mirrors": [
+    {
+      "ubuntu": "se.archive.ubuntu.com"
+    },
+    {
+      "debian": "ftp.se.debian.org"
+    }
+  ],
+  "geoip_country_code": "SE"
+}</code></pre>
+
+      <h3>Source</h3>
+          <p>View source at <a href="https://github.com/robinwl/deb-mirrors">github</a> and <a href="https://hub.docker.com/">Docker hub</a>.</p>
+
+      <h3>Contact</h3>
+      <p>Email: robin[at]naas.io</p>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
