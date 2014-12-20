@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "robin/trusty64"
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8870, host: 8870
 
   config.vm.provision "shell", inline: $shell
   if Vagrant.has_plugin?("vagrant-vbguest") then
